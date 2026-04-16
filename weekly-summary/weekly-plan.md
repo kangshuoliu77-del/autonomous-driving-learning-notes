@@ -9,7 +9,7 @@
 
 ## 理论学习
 - [ ] Modern Robotics 第 9 章 轨迹生成
-- [ ] Modern Robotics 第 10 章 运动规划
+- [x] Modern Robotics 第 10 章 运动规划
 - [ ] Modern Robotics 第 11 章 机器人控制
 - [ ] Linear System Theory Lecture 8 Lyapunov 稳定性
 
