@@ -28,7 +28,7 @@
 - [x] Modern Robotics 第2章 构型空间 C-space
 - [x] Modern Robotics 第3章 刚体运动 SO(3) SE(3) 指数坐标 旋量
 - [ ] Modern Robotics 第9章 轨迹生成
-- [ ] Modern Robotics 第10章 运动规划
+- [x] Modern Robotics 第10章 运动规划
 - [x] Modern Robotics 第11章 机器人控制 PID 误差动力学
 
 ### 📐 控制理论
@@ -56,7 +56,7 @@
 - [ ] 倒立摆 PID 控制
 - [ ] 倒立摆 LQR 控制
 - [ ] 倒立摆 MPC 控制
-- [ ] A* 狭窄空间规划
+- [x] A* 狭窄空间规划
 
 ---
 
