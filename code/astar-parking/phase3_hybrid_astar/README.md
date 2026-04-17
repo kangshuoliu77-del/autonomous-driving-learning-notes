@@ -2,6 +2,8 @@
 
 这是自动泊车项目的第三阶段成果：**基于混合 A\* (Hybrid A\*) 算法的非完整性约束路径规划**。
 
+[点击查看 Phase 3 运动学模型与算法学习笔记](https://github.com/kangshuoliu77-del/autonomous-driving-learning-notes/blob/main/code/astar-parking/phase3_hybrid_astar/Phase3_HybridAStar_Notes.md)
+
 ## 🎯 阶段目标
 本阶段实现了从“栅格寻路”到“真实车辆运动学规划”的质变。重点解决了路径在物理上的**可行驶性 (Feasibility)** 问题。
 
