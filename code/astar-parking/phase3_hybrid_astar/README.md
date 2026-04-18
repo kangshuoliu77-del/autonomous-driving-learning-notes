@@ -62,6 +62,15 @@ python main_parallel.py
 ```
 ---
 
+---
+
+## 🔧 参数调优记录
+
+- **运动步长调整**：将 `HybridAStar.solve()` 中的扩展步长 `dt` 从 `1.0` 降至 `0.5`。调整后，在狭窄车位（下图仅展示垂直场景泊车）中，搜索树的分辨率更高，路径的“锯齿感”有所减轻。
+![Phase 3 optimal vertical](https://github.com/kangshuoliu77-del/autonomous-driving-learning-notes/blob/main/code/astar-parking/phase3_hybrid_astar/optimal_verticle.png)
+---
+
+
 ## 🚸 存在的问题（后续研究方向）
 1.  **曲率不连续**：目前的路径由离散的运动基元拼接而成，在转向切换处存在曲率突变。
 2.  **轨迹平滑需求**：目前的路径虽然可行驶，但仍有“锯齿感”，需要通过数值优化进一步平滑。
