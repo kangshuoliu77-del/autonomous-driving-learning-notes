@@ -14,10 +14,8 @@
 - 🧠 **reinforcement-learning/** —— 强化学习
 - 📄 **paper-notes/** —— 论文精读笔记
 - 💻 **code/** —— 实验代码
-  - cartpole-pid/ —— 倒立摆 PID 控制
-  - cartpole-lqr/ —— 倒立摆 LQR 控制
-  - cartpole-mpc/ —— 倒立摆 MPC 控制
-  - astar-parking/ —— A* 狭窄空间规划
+  - cartpole/ —— 倒立摆 PID LQR MPC 控制
+  - astar-parking/ —— A* 泊车规划 (Phase 1-3)
 - 📅 **weekly-summary/** —— 每周学习总结
 
 ---
@@ -29,7 +27,7 @@
 - [x] Modern Robotics 第3章 刚体运动 SO(3) SE(3) 指数坐标 旋量
 - [ ] Modern Robotics 第9章 轨迹生成
 - [x] Modern Robotics 第10章 运动规划
-- [x] Modern Robotics 第11章 机器人控制 PID 误差动力学
+- [ ] Modern Robotics 第11章 机器人控制
 
 ### 📐 控制理论
 
@@ -53,18 +51,19 @@
 - [ ] MARL MADDPG MAPPO QMIX
 
 ### 🧪 实验
+- [x] A* 泊车规划 (Phase 1-3)
 - [ ] 倒立摆 PID 控制
 - [ ] 倒立摆 LQR 控制
 - [ ] 倒立摆 MPC 控制
-- [x] A* 狭窄空间规划
+
 
 ---
 
 ## 📝 最近更新
 
-- **2026.04 Week 5** 搭建学习仓库 上传 MR 第3章手写笔记 补全 Week 1-5 周报
+- **2026.04 Week 5** 精读 MR 第10章，完成 A* 泊车实验 Phase 1-3
 - **2026.04 Week 4** 完成 MR 第3章精读 Linear System Theory 第1 2 6章
-- **2026.04 Week 3** 现代控制理论 状态空间 稳定性 能控能观性 MR 第2 11章
+- **2026.04 Week 3** 现代控制理论 状态空间 稳定性 能控能观性 MR 第2章
 - **2026.03 Week 2** 避障算法 APF DWA A* PP RL优化避障论文
 - **2026.03 Week 1** RL 入门 MDP 贝尔曼 值迭代 策略迭代 MC TD PPO
 
