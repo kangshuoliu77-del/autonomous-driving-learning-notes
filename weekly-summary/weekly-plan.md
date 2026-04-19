@@ -1,18 +1,26 @@
-# 本周计划 | Week 5：2026.04.12 - 2026.04.18
+# Week 6 Plan：2026.04.19 - 2026.04.25
 
-## 实验
-- [ ] 倒立摆 PID 调参（完成三组对照实验）
-- [ ] 倒立摆 LQR 控制
-- [ ] 倒立摆 MPC 控制
-- [ ] 倒立摆 RL 控制
-- [ ] A* 泊车规划实验
+## 本周目标
 
-## 理论学习
-- [ ] Modern Robotics 第 9 章 轨迹生成
-- [x] Modern Robotics 第 10 章 运动规划
-- [ ] Modern Robotics 第 11 章 机器人控制
-- [ ] Linear System Theory Lecture 8 Lyapunov 稳定性
+围绕 A* 泊车实验继续深入，打通 Planning → Control 闭环。
 
-## 记录
-- [ ] 更新实验数据和代码到 GitHub
-- [ ] 周末写 Week 6 总结
+## 学习任务
+
+### MR 精读
+- [ ] 第 9 章：轨迹生成（Time Scaling、Trajectory Parameterization）
+- [ ] 第 11 章：机器人控制（PID、前馈+反馈、运动控制与力控制）
+
+### Phase 3 优化
+- [ ] 搜索加速：Occupancy Map + Octree 替代均匀网格
+- [ ] 轨迹平滑：梯度下降 / 牛顿法后处理路径点
+- [ ] 解析扩展：Reeds-Shepp 曲线对接终点
+
+### 控制器接入
+- [ ] 实现 Pure Pursuit 或 MPC 路径跟踪
+- [ ] 与 Phase 3 规划结果联调，验证闭环效果
+
+## 预期产出
+
+- 第 9、11 章精读笔记
+- Phase 3 优化版代码（加速 + 平滑 + RS 射击）
+- 规划-跟踪闭环 Demo
