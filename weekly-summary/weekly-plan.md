@@ -10,8 +10,9 @@
 - [ ] 第 9 章：轨迹生成（Time Scaling、Trajectory Parameterization）
 - [ ] 第 11 章：机器人控制（PID、前馈+反馈、运动控制与力控制）
 
-### Phase 3 优化
-- [ ] 搜索加速：Occupancy Map + Octree 替代均匀网格
+### Phase 4 优化（新建 phase4_hybrid_astar_v2）
+- [x] 搜索加速：collision_checker numpy 向量化完成
+- [ ] 搜索加速：RS 曲线启发式、双向 A*
 - [ ] 轨迹平滑：梯度下降 / 牛顿法后处理路径点
 - [ ] 解析扩展：Reeds-Shepp 曲线对接终点
 

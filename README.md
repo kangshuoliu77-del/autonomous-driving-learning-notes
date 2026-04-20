@@ -15,7 +15,7 @@
 - 📄 **paper-notes/** —— 论文精读笔记
 - 💻 **code/** —— 实验代码
   - cartpole/ —— 倒立摆 PID LQR MPC 控制
-  - astar-parking/ —— A* 泊车规划 (Phase 1-3)
+  - astar-parking/ —— A* 泊车规划 (Phase 1-4)
 - 📅 **weekly-summary/** —— 每周学习总结
 
 ---
@@ -61,6 +61,7 @@
 
 ## 📝 最近更新
 
+- **2026.04 Week 6** MR 第9章1-2节笔记，Phase 4 Hybrid A* 优化启动（numpy向量化碰撞检测）
 - **2026.04 Week 5** 精读 MR 第10章，完成 A* 泊车实验 Phase 1-3
 - **2026.04 Week 4** 完成 MR 第3章精读 Linear System Theory 第1 2 6章
 - **2026.04 Week 3** 现代控制理论 状态空间 稳定性 能控能观性 MR 第2章
