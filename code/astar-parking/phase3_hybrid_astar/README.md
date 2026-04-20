@@ -51,9 +51,6 @@
 确保所有模块位于同一目录下，直接运行对应的 Demo 脚本：
 
 ```bash
-# 验证基础避障逻辑
-python main_simple.py
-
 # 验证垂直泊车场景
 python main_vertical.py
 

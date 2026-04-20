@@ -1,3 +1,4 @@
+import heapq
 import heuristic
 from node import Node
 
@@ -25,33 +26,35 @@ def get_neighbors(current_node, maze):
 
 def solve(maze, start_pos, end_pos):
     """执行 A* 路径搜索。"""
-    open_list = [Node(start_pos)]
+    open_list = []
+    counter = 0
+    start = Node(start_pos)
+    heapq.heappush(open_list, (start.f, counter, start))
     closed_list = []
-    
+
     while open_list:
-        # 获取 F 值最小的节点
-        current_node = min(open_list, key=lambda n: n.f)
-        open_list.remove(current_node)
+        _, _, current_node = heapq.heappop(open_list)
         closed_list.append(current_node)
-        
+
         if current_node.position == end_pos:
             path = []
             while current_node:
                 path.append(current_node.position)
                 current_node = current_node.parent
             return path[::-1]
-            
+
         for neighbor in get_neighbors(current_node, maze):
             if any(c_node == neighbor for c_node in closed_list): continue
-            
+
             tentative_g = current_node.g + neighbor.step_cost
-            existing_node = next((n for n in open_list if n == neighbor), None)
-            
+            existing_node = next((n[2] for n in open_list if n[2] == neighbor), None)
+
             if existing_node is None:
                 neighbor.g = tentative_g
                 neighbor.h = heuristic.calculate(neighbor.position, end_pos)
                 neighbor.f = neighbor.g + neighbor.h
-                open_list.append(neighbor)
+                counter += 1
+                heapq.heappush(open_list, (neighbor.f, counter, neighbor))
             elif tentative_g < existing_node.g:
                 existing_node.g = tentative_g
                 existing_node.parent = current_node

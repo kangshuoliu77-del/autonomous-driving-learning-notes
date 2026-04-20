@@ -1,5 +1,6 @@
 from node import Node
 from heuristic import get_dist
+import heapq
 
 def is_valid(pos, maze):
     """边界检查与碰撞检测"""
@@ -32,15 +33,14 @@ def solve(maze, start_pos, end_pos):
     start_node = Node(start_pos)
     end_node = Node(end_pos)
 
-    open_list = [start_node]
+    open_list = []
+    counter = 0
+    heapq.heappush(open_list, (start_node.f, counter, start_node))
     closed_list = []
 
     while open_list:
         # 1. 选取 OpenList 中 f 值最小的节点作为当前处理节点
-        current_node = min(open_list, key=lambda n: n.f)
-        current_idx = open_list.index(current_node)
-        
-        open_list.pop(current_idx)
+        f, _, current_node = heapq.heappop(open_list)
         closed_list.append(current_node)
 
         # 2. 目标达成判定
@@ -63,19 +63,18 @@ def solve(maze, start_pos, end_pos):
             new_f = new_g + new_h
 
             # 4. 节点更新逻辑：确保 OpenList 中同一坐标节点最优
-            found_node = next((n for n in open_list if n == neighbor), None)
+            found_node = next((n for n in open_list if n[2] == neighbor), None)
 
             if found_node:
-                if new_g < found_node.g:
-                    # 发现更优路径，更新其代价与父节点指向
-                    found_node.g = new_g
-                    found_node.f = new_f
-                    found_node.parent = current_node
+                if new_g < found_node[2].g:
+                    found_node[2].g = new_g
+                    found_node[2].f = new_f
+                    found_node[2].parent = current_node
             else:
-                # 新发现节点，赋值并加入 OpenList
                 neighbor.g = new_g
                 neighbor.h = new_h
                 neighbor.f = new_f
-                open_list.append(neighbor)
+                counter += 1
+                heapq.heappush(open_list, (new_f, counter, neighbor))
 
     return None

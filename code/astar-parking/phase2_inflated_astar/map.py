@@ -23,7 +23,7 @@ def get_inflated_map(maze, radius):
     for r in range(rows):
         for c in range(cols):
             if maze[r][c] == 1:
-                # 整数半径膨胀：遍历周围的正方形区域
+                # 正方形近似膨胀：角落处实际距离达 √2*radius，略微过度膨胀，但路径更保守安全
                 for dr in range(-radius, radius + 1):
                     for dc in range(-radius, radius + 1):
                         nr, nc = r + dr, c + dc

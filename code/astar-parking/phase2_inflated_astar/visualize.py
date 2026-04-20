@@ -3,7 +3,7 @@ import matplotlib.colors as colors
 import numpy as np
 
 def compare_inflation(raw_maze, inflated_maze, path, start, end):
-    """对比原始地图和膨胀后的 C-Space 地图。"""
+    """Compare original workspace and inflated C-Space map."""
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(16, 8))
     cmap = colors.ListedColormap(['white', 'black', 'red', 'green', 'blue'])
     norm = colors.BoundaryNorm([0, 1, 2, 3, 4, 5], cmap.N)
@@ -16,8 +16,8 @@ def compare_inflation(raw_maze, inflated_maze, path, start, end):
         return g
 
     ax1.imshow(process_grid(raw_maze, None)[::-1], cmap=cmap, norm=norm)
-    ax1.set_title("原始工作空间 (Workspace)")
-    
+    ax1.set_title("Original Workspace")
+
     ax2.imshow(process_grid(inflated_maze, path)[::-1], cmap=cmap, norm=norm)
-    ax2.set_title("配置空间路径 (C-Space + Path)")
+    ax2.set_title("C-Space + Planned Path")
     plt.show()

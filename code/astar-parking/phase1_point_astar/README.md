@@ -14,7 +14,7 @@
 ## 📂 文件清单
 - `node.py`: 定义 A* 节点的数据结构（g, h, f 值及父节点）。
 - `map.py`: 提供 0/1 栅格地图（支持静态和随机生成）。
-- `heuristic.py`: 计算欧几里得距离作为启发式代价值。
+- `heuristic.py`: 计算曼哈顿距离作为启发式代价值（4 连通网格的最优 admissible heuristic）。
 - `astar.py`: 核心搜索逻辑，包含节点更新机制。
 - `visualize.py`: 基于 Matplotlib 的路径绘制工具。
 - `main.py`: 程序入口。
