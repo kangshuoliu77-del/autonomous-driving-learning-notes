@@ -24,7 +24,7 @@ Phase 3 已实现运动学可行的 Hybrid A\* 泊车规划，但存在两个核
 | 运动模型 | 4连通质点 | 8连通质点 | 运动学自行车模型 | 运动学自行车模型 |
 | 安全性 | 无 | C-space 膨胀 | 矩形车身碰撞检测 | 矩形车身碰撞检测 |
 | 启发式 | 曼哈顿距离 | 欧几里得距离 | 欧几里得距离 | RS 曲线距离（近距离切换） |
-| 控制器 | 无 | 无 | 无 | MPC（SLSQP 滚动优化） |
+| 控制器 | 无 | 无 | 无 | MPC（CasADi+IPOPT，4角点碰撞）|
 | 路径执行 | 仿真走格子 | 仿真走格子 | 仿真走运动原语 | MPC 连续控制量跟踪 |
 
 ---
@@ -54,10 +54,11 @@ h = rs_distance(next_state, self.goal, self.turning_radius) if euclidean < 5.0 e
 给定参考路径，每步对未来 N 步做滚动优化，输出连续控制量 $(v, \varphi)$：
 
 ```
-代价函数 J = Σ [w_pos·位置偏差² + w_theta·角度偏差² + w_obs·碰撞惩罚 + w_ctrl·控制平滑]
-优化器：scipy SLSQP
+代价函数 J = Σ [w_pos·位置偏差² + w_theta·角度偏差² + w_obs·4角点碰撞惩罚 + w_ctrl·控制平滑]
+优化器：CasADi + IPOPT（内点法，自动微分）
 约束：v ∈ [-1, 1],  φ ∈ [-0.4, 0.4]
-最终参数：N=5, dt=0.5, w_pos=5.0, w_theta=2.0, w_ctrl=0.1, w_obs=10.0, d_safe=0.5
+最终参数：N=5, dt=0.5, w_pos=5.0, w_theta=2.0, w_ctrl=0.1, w_obs=15.0, d_safe=0.5
+NLP 在 __init__ 时预编译，每步仅传参数，约 3ms/步
 ```
 
 ### 修改模块
@@ -99,7 +100,7 @@ python main_vertical.py
 python main_parallel.py
 ```
 
-依赖：`numpy`, `matplotlib`, `scipy`
+依赖：`numpy`, `matplotlib`, `scipy`, `casadi`（`pip install casadi`）
 
 ---
 

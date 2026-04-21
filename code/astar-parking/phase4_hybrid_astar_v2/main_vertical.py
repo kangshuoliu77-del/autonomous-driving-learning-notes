@@ -152,7 +152,7 @@ def main():
     fcx, fcy = zip(*final_corners)
     plt.plot(fcx, fcy, 'b-', linewidth=3, label="Final Pose")
 
-    plt.title("Hybrid A* + MPC: Vertical Parking")
+    plt.title("Hybrid A* + MPC (CasADi/IPOPT): Vertical Parking")
     plt.xlabel("X (m)")
     plt.ylabel("Y (m)")
     plt.axis("equal")
