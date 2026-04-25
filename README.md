@@ -12,6 +12,10 @@
   - 现代控制理论基础 状态空间 稳定性 能控能观
   - 线性系统理论 LST 进阶学习中
 - 🧠 **reinforcement-learning/** —— 强化学习
+- 🧩 **machine-learning/** —— 机器学习与深度学习
+  - resources/ —— 课程资料、参考书、PDF
+  - notes/ —— 机器学习 / 深度学习学习笔记
+  - experiments/ —— 小实验、训练 demo、数据集说明
 - 📄 **paper-notes/** —— 论文精读笔记
 - 💻 **code/** —— 实验代码
   - cartpole/ —— 倒立摆 PID LQR MPC 控制
@@ -25,7 +29,7 @@
 ### 🤖 机器人学
 - [x] Modern Robotics 第2章 构型空间 C-space
 - [x] Modern Robotics 第3章 刚体运动 SO(3) SE(3) 指数坐标 旋量
-- [ ] Modern Robotics 第9章 轨迹生成
+- [x] Modern Robotics 第9章 轨迹生成
 - [x] Modern Robotics 第10章 运动规划
 - [ ] Modern Robotics 第11章 机器人控制
 
@@ -50,8 +54,18 @@
 - [x] PPO Actor-Critic 体系
 - [ ] MARL MADDPG MAPPO QMIX
 
+### 🧩 机器学习 / 深度学习
+- [ ] PyTorch 基础与张量操作
+- [ ] 监督学习训练流程 Dataset Dataloader Model Loss Optimizer
+- [ ] 《动手学深度学习》入门
+- [ ] Learning A* heuristic / neural planning 初步调研
+- [ ] 泊车轨迹数据集设计
+
 ### 🧪 实验
 - [x] A* 泊车规划 (Phase 1-3)
+- [x] Phase 4 Hybrid A* + CasADi/IPOPT MPC 闭环泊车
+- [ ] 泊车轨迹数据集生成
+- [ ] Learning-based heuristic 小实验
 - [ ] 倒立摆 PID 控制
 - [ ] 倒立摆 LQR 控制
 - [ ] 倒立摆 MPC 控制
@@ -61,7 +75,8 @@
 
 ## 📝 最近更新
 
-- **2026.04 Week 6** MR 第9章1-2节笔记，Phase 4 Hybrid A* 优化启动（numpy向量化碰撞检测）
+- **2026.04 Week 7** 新增 machine-learning 学习区，开始从传统泊车闭环过渡到 learning-based planning
+- **2026.04 Week 6** 完成 Phase 4 Hybrid A* + CasADi/IPOPT MPC 闭环泊车，成功率 10/10，碰撞 0/10
 - **2026.04 Week 5** 精读 MR 第10章，完成 A* 泊车实验 Phase 1-3
 - **2026.04 Week 4** 完成 MR 第3章精读 Linear System Theory 第1 2 6章
 - **2026.04 Week 3** 现代控制理论 状态空间 稳定性 能控能观性 MR 第2章
@@ -70,4 +85,4 @@
 
 ---
 
-*最后更新 2026.04*
+*最后更新 2026.04.25*
