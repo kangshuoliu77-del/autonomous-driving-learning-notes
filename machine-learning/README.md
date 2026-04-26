@@ -39,6 +39,10 @@ machine-learning/
 └── experiments/        # 小实验代码或数据集说明
 ```
 
+## 实验模板
+
+- `experiments/d2l_linear_regression_scratch_template.py`：D2L 3.2 线性回归从零实现模板，保留数据生成、mini-batch、模型、loss、SGD、训练循环的完整骨架。
+
 ## 与泊车项目的连接
 
 后续最自然的实验路线：
@@ -47,4 +51,3 @@ machine-learning/
 2. 保存状态、障碍物、目标位姿、参考轨迹、控制量等数据
 3. 训练一个小网络学习某个子任务
 4. 把网络接回传统规划器，观察是否能减少搜索节点或改善轨迹质量
-
