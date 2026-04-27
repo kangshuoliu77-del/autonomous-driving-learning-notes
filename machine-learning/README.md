@@ -42,6 +42,7 @@ machine-learning/
 ## 实验模板
 
 - `experiments/d2l_linear_regression_scratch_template.py`：D2L 3.2 线性回归从零实现模板，保留数据生成、mini-batch、模型、loss、SGD、训练循环的完整骨架。
+- `experiments/d2l_linear_regression_concise_template.py`：D2L 3.3 线性回归简洁实现模板，用 `DataLoader`、`nn.Linear`、`nn.MSELoss`、`torch.optim.SGD` 替代手写训练组件。
 
 ## 与泊车项目的连接
 
