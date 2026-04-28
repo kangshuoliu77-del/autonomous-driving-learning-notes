@@ -44,6 +44,7 @@ machine-learning/
 - `experiments/d2l_linear_regression_scratch_template.py`：D2L 3.2 线性回归从零实现模板，保留数据生成、mini-batch、模型、loss、SGD、训练循环的完整骨架。
 - `experiments/d2l_linear_regression_concise_template.py`：D2L 3.3 线性回归简洁实现模板，用 `DataLoader`、`nn.Linear`、`nn.MSELoss`、`torch.optim.SGD` 替代手写训练组件。
 - `experiments/d2l_softmax_regression_concise_template.py`：D2L 3.7 softmax 回归简洁实现模板，用 `Fashion-MNIST`、`nn.Flatten`、`nn.Linear`、`nn.CrossEntropyLoss` 和 `torch.optim.SGD` 完成多分类训练，并输出训练集/测试集准确率。
+- `experiments/d2l_mlp_scratch_template.py`：D2L 4.2 多层感知机从零实现模板，手写 `W1/b1`、`ReLU`、`W2/b2` 和 SGD，展示 MLP 相比 softmax 回归多出的隐藏层和激活函数。
 
 ## 与泊车项目的连接
 
