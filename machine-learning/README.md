@@ -48,6 +48,9 @@ machine-learning/
 - `experiments/d2l_mlp_concise_template.py`：D2L 4.3 多层感知机简洁实现模板，用 `nn.Sequential`、`nn.Flatten`、`nn.Linear`、`nn.ReLU` 和 `torch.optim.SGD` 完成 MLP 图像分类训练。
 - `experiments/d2l_mlp_regularization_template.py`：D2L 4.5/4.6 正则化模板，在 MLP 中同时加入 `weight_decay` 权重衰减和 `nn.Dropout`，用于理解缓解过拟合的两种常用方法。
 - `experiments/parking_heuristic_module_template.py`：D2L 5.1 `nn.Module` 自定义模型模板，模拟 `state + goal + env -> heuristic cost` 的泊车 learning heuristic 网络结构。
+- `experiments/d2l_parameter_management_template.py`：D2L 5.2 参数管理复习模板，覆盖 `parameters()`、`named_parameters()`、参数形状、梯度、初始化和冻结参数。
+- `experiments/d2l_save_load_template.py`：D2L 5.5 保存和加载模板，演示 `torch.save`、`torch.load`、`state_dict`、`load_state_dict` 和推理模式。
+- `experiments/d2l_gpu_template.py`：D2L 5.6 GPU 模板，演示 `device`、`net.to(device)`、`X.to(device)`，强调模型和数据必须在同一个设备。
 
 ## 与泊车项目的连接
 
