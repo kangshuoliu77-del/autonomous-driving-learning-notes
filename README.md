@@ -1,4 +1,4 @@
-# 🚗 自动驾驶学习笔记 autonomous-driving-learning-notes
+# 🚗 Autonomous-Driving-Learning-Notes
 
 > 系统记录从零学习自动驾驶、控制理论、强化学习和机器人的过程
 
