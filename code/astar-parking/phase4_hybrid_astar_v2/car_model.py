@@ -1,5 +1,6 @@
 import math
 
+
 class KinematicCar:
     """
     模块一：车辆运动学与几何模型
@@ -33,7 +34,7 @@ class KinematicCar:
         # 这里的 dx, dy, d_theta 构成了车辆在 SE(2) 空间里的速度向量
         dx = v * math.cos(theta) * dt
         dy = v * math.sin(theta) * dt
-        
+
         # d_theta = (v/L) * tan(phi)
         # 这是决定车辆非完整约束的核心：不跑(v=0)就不转
         d_theta = (v * math.tan(phi) / self.L) * dt
@@ -41,7 +42,7 @@ class KinematicCar:
         new_x = x + dx
         new_y = y + dy
         new_theta = theta + d_theta
-        
+
         # 角度规范化：保证在 [-pi, pi] 之间，防止搜索时角度累加过大
         new_theta = math.atan2(math.sin(new_theta), math.cos(new_theta))
 
