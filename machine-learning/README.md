@@ -51,6 +51,7 @@ machine-learning/
 - `experiments/d2l_parameter_management_template.py`：D2L 5.2 参数管理复习模板，覆盖 `parameters()`、`named_parameters()`、参数形状、梯度、初始化和冻结参数。
 - `experiments/d2l_save_load_template.py`：D2L 5.5 保存和加载模板，演示 `torch.save`、`torch.load`、`state_dict`、`load_state_dict` 和推理模式。
 - `experiments/d2l_gpu_template.py`：D2L 5.6 GPU 模板，演示 `device`、`net.to(device)`、`X.to(device)`，强调模型和数据必须在同一个设备。
+- `experiments/d2l_cnn_local_map_template.py`：D2L 第 6 章 CNN 局部地图模板，用 `Conv2d -> ReLU -> MaxPool2d` 从 `local_map` 提取 `map_feature`，并演示和 `state/goal` 特征拼接后预测 `cost_to_go`。
 
 ## 与泊车项目的连接
 
