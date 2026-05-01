@@ -1,4 +1,4 @@
-# Phase 5：学习 Hybrid A* 启发式
+# Phase 5：Learning Hybrid A* 启发式
 
 本阶段开始把 learning 方法接入自动泊车实验。
 
