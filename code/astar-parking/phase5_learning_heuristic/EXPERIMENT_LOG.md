@@ -3,13 +3,14 @@
 这份记录用于保留 Phase 5 的完整实验过程：每一步在做什么、为什么这么做、遇到了什么问题、当前结果是什么。
 
 > [!NOTE]
-> 当前阶段已经完成：生成 `cost_to_go` 数据集，并训练出第一版 MLP 启发式模型。下一步是离线评估，然后再谨慎接回 Hybrid A*。
+> 当前阶段已经完成：生成 `cost_to_go` 数据集、训练第一版 MLP 启发式模型，并完成第一轮离线评估。下一步是把 learned heuristic 谨慎接回 Hybrid A* 做对照实验。
 
 | 模块 | 状态 | 说明 |
 | --- | --- | --- |
 | 数据集生成 | ✅ 完成 | 100 次 trials，1783 条样本 |
 | MLP 训练 | ✅ 完成 | test loss 约 0.8251 |
-| 接回 Hybrid A* | ⏳ 下一步 | 先做离线评估，再接入搜索 |
+| 离线评估 | ✅ 完成 | MAE 0.6216，ranking acc 约 0.98 |
+| 接回 Hybrid A* | ⏳ 下一步 | 先作为 tie-breaker 或弱辅助项 |
 | MPC / 控制器学习 | ⏸️ 暂缓 | 后续阶段再做 |
 
 ---
@@ -266,7 +267,128 @@ true=9.00, pred=9.01
 
 ---
 
-## 8. ⚠️ 遇到的问题和解决
+## 8. 🔎 第一轮离线评估
+
+脚本：
+
+```text
+evaluate_heuristic.py
+```
+
+评估目的：
+
+```text
+先判断第一版 MLP heuristic 到底学得怎么样，再决定是否接回 Hybrid A*。
+```
+
+评估数据：
+
+```text
+X shape: (1783, 8)
+y shape: (1783, 1)
+```
+
+前 10 个样本预测：
+
+```text
+true=22.00, pred=19.09
+true=21.00, pred=20.17
+true=20.00, pred=21.44
+true=19.00, pred=20.37
+true=18.00, pred=19.08
+true=17.00, pred=17.83
+true=16.00, pred=16.56
+true=15.00, pred=15.69
+true=14.00, pred=14.82
+true=13.00, pred=13.57
+```
+
+整体误差：
+
+```text
+MAE: 0.6216
+RMSE: 1.0099
+Max error: 8.1689
+```
+
+含义：
+
+- `MAE` 表示平均每个样本预测错多少 cost 单位
+- `RMSE` 对大误差更敏感，用来观察是否存在明显错得很大的样本
+- `Max error` 表示最差样本的最大绝对误差
+
+当前结果说明：
+
+- 平均误差约 0.62，整体预测可接受
+- RMSE 大于 MAE，说明大多数样本误差较小，但少量样本误差较明显
+- 最大误差 8.1689，说明模型在部分状态上仍不稳定
+
+分 cost 区间误差：
+
+```text
+0-5    count= 500, MAE=0.2819, Max=2.3288
+5-10   count= 498, MAE=0.3956, Max=2.3140
+10-15  count= 448, MAE=0.7748, Max=5.2493
+15-20  count= 271, MAE=0.9905, Max=6.6783
+20+    count=  66, MAE=2.3471, Max=8.1689
+```
+
+含义：
+
+- 近目标区间 `0-10` 预测最好
+- 中距离区间 `10-20` 误差逐渐增大
+- 大 cost 区间 `20+` 只有 66 条样本，误差明显最大
+
+当前判断：
+
+```text
+cost_to_go 越大，预测越困难。
+```
+
+可能原因：
+
+- 大 cost 样本数量少
+- 离目标越远，真实剩余代价越依赖路径绕行和障碍物结构
+- 第一版 MLP 没有输入地图，只能根据 state 和 goal 推断，无法真正理解障碍物分布
+
+排序准确率：
+
+```text
+Ranking acc: 0.9832
+```
+
+该指标做法：
+
+```text
+随机抽取 10000 对样本，比较模型是否能判断哪一个 state 的 cost_to_go 更小。
+```
+
+为什么需要这个指标：
+
+```text
+A* 搜索中，模型不一定必须把 cost_to_go 的绝对数值预测得完全准确。
+更重要的是，它能不能判断哪个节点更值得先扩展。
+```
+
+当前结果说明：
+
+- 模型排序能力很强
+- 虽然大 cost 区间数值误差较大，但整体判断“谁更接近目标”的能力较好
+- 第一版 MLP 具备作为搜索辅助项或 tie-breaker 的初步价值
+
+本轮离线评估结论：
+
+```text
+第一版 MLP heuristic 可以学习到 cost_to_go 的总体趋势；
+近目标区域预测较准；
+远离目标时误差明显增大；
+排序能力很强，适合作为辅助 heuristic 进入下一步实验；
+但不适合直接替代原始 h。
+```
+
+---
+
+## 9. ⚠️ 遇到的问题和解决
 
 ### ⏱️ 数据生成速度慢
 
@@ -294,13 +416,14 @@ true=9.00, pred=9.01
 
 ---
 
-## 9. 📦 当前产物
+## 10. 📦 当前产物
 
 代码：
 
 ```text
 dataset_generator.py
 train_heuristic_mlp.py
+evaluate_heuristic.py
 ```
 
 本地生成但不提交 Git 的文件：
@@ -318,33 +441,43 @@ models/heuristic_mlp_v1.pth
 
 ---
 
-## 10. 🚀 下一步计划
+## 11. 🚀 下一步计划
 
 阶段检查：
 
 - [x] 生成第一版 `cost_to_go` 数据集
 - [x] 训练第一版 MLP heuristic
-- [ ] 做离线误差和排序评估
+- [x] 做离线误差和排序评估
 - [ ] 作为弱辅助项接回 Hybrid A*
 - [ ] 对比原始启发式和 learned heuristic 的搜索效率
 
-下一步不是立刻替换原始 `h`，而是先做离线评估：
+下一步不是直接替换原始 `h`，而是把 learned heuristic 以更保守的方式接回搜索。
 
 ```text
-load heuristic_mlp_v1.pth
-评估预测误差
-评估排序准确率
+不要直接使用 h = learned_h
 ```
-
-如果离线评估稳定，再把 learned heuristic 接回 Hybrid A*。
 
 第一版接入建议：
 
 ```text
-不要直接替换传统 h
-先作为 tie-breaker 或弱辅助项
+方案 A：tie-breaker
+当多个节点的原始 f 接近时，用 learned_h 判断谁更值得先扩展
+
+方案 B：弱辅助项
+h = original_h + alpha * learned_h
+其中 alpha 先取较小值
 ```
 
 原因：
 
 learned heuristic 不一定满足 A* 的 admissible 条件，直接替换可能导致搜索不稳定。
+
+下一轮实验需要记录：
+
+- 原始 Hybrid A* 的搜索时间
+- 原始 Hybrid A* 的 expanded nodes
+- learned heuristic 版本的搜索时间
+- learned heuristic 版本的 expanded nodes
+- 成功率
+- 路径长度
+- 是否出现碰撞或搜索失败

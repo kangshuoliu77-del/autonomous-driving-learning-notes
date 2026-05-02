@@ -20,6 +20,7 @@ Hybrid A* 成功路径
 ```text
 dataset_generator.py      # 生成 cost_to_go 数据集
 train_heuristic_mlp.py    # 训练第一版 MLP heuristic
+evaluate_heuristic.py     # 离线评估第一版 MLP heuristic
 EXPERIMENT_LOG.md         # 中文实验过程记录
 ```
 
@@ -64,6 +65,12 @@ python3 dataset_generator.py --num-trials 100 --output datasets/parking_cost_to_
 python3 train_heuristic_mlp.py
 ```
 
+离线评估：
+
+```bash
+python3 evaluate_heuristic.py
+```
+
 ---
 
 ## 当前结果
@@ -77,6 +84,22 @@ y shape: (1783, 1)
 ```
 
 第一版 MLP 已能预测 cost_to_go 的大趋势，典型误差约 1 个 cost 单位。
+
+离线评估结果：
+
+```text
+MAE: 0.6216
+RMSE: 1.0099
+Max error: 8.1689
+Ranking acc: 0.9832
+```
+
+当前判断：
+
+- 近目标区域预测较准
+- 大 cost 区间误差更明显
+- 排序能力较强，适合作为辅助 heuristic 或 tie-breaker 继续实验
+- 第一版不直接替代原始 `h`
 
 详细过程见：
 
