@@ -91,14 +91,18 @@ y shape: (1783, 1)
 MAE: 0.6216
 RMSE: 1.0099
 Max error: 8.1689
-Ranking acc: 0.9832
+Euclidean h ranking acc: 0.8918
+2D Dijkstra h ranking acc: 0.8235
+MLP learned h ranking acc: 0.9832
 ```
 
 当前判断：
 
 - 近目标区域预测较准
 - 大 cost 区间误差更明显
-- 排序能力较强，适合作为辅助 heuristic 或 tie-breaker 继续实验
+- MLP 排序能力明显强于欧氏距离和 2D Dijkstra baseline
+- 2D Dijkstra 能考虑障碍物，但不考虑姿态和非完整约束，因此在当前数据集上不如 MLP
+- 适合作为辅助 heuristic 或 tie-breaker 继续实验
 - 第一版不直接替代原始 `h`
 
 详细过程见：
