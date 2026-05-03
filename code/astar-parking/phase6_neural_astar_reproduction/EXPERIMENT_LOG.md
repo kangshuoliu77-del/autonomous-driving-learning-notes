@@ -1,42 +1,66 @@
 # Phase 6 实验记录：Neural A* 简化复现
 
-这份记录用于保存 Phase 6 的实验过程、关键想法、数据生成方式和后续结果。
-
-Phase 6 当前目标是先复现论文中 learning heuristic 的最小闭环：
+Phase 6 先复现 learning heuristic 的 2D toy 版本：
 
 ```text
 随机 2D 栅格地图
 -> Dijkstra 反向搜索生成 cost-to-go 标签
 -> CNN 学习 heuristic map
--> learned heuristic 接回 A*
--> 对比搜索效率
+-> 后续接回 A* 对比 expanded nodes
 ```
 
----
-
-## 1. 当前阶段：2D toy 数据集生成
-
-当前先做论文里的简化 2D toy 版本，不直接做泊车 SE(2) continuous domain。
-
-原因：
-
-- 2D toy 的状态只有 `(x, y)`，更容易检查
-- Dijkstra 标签清楚，可作为 2D 网格问题里的真实 `h*(x, y)`
-- CNN 输入输出结构简单，适合先跑通论文核心流程
-- 后续再迁移到 Hybrid A* 泊车问题
-
-当前暂时不考虑：
-
-- 车辆姿态 `theta`
-- 车辆不能侧移、不能原地转向
-- 最小转弯半径
-- 车身矩形碰撞
-- 倒车和转向惩罚
-- SE(2) heuristic volume
+当前阶段不考虑车辆姿态、转弯半径、倒车、车身碰撞和 SE(2) 运动学约束。
 
 ---
 
-## 2. 数据格式
+## 0. 实验思考
+
+### 0.1 为什么先做 2D toy
+
+论文中有 2D toy 和更接近 continuous / SE(2) 的设置。当前先做 2D toy，是为了把 learning heuristic 的最小闭环跑通：
+
+```text
+map -> Dijkstra label -> CNN heuristic -> A*
+```
+
+2D toy 的优点是标签清楚。状态只有 `(x, y)`，Dijkstra 从 goal 反向搜索得到的 cost-to-go map 可以作为该问题下的真实 `h*(x, y)`。
+
+这一步不是最终泊车版本。泊车问题最终需要考虑：
+
+```text
+(x, y, theta)
+车辆不能侧移
+不能原地转向
+最小转弯半径
+倒车/转向代价
+车身矩形碰撞
+```
+
+所以普通 2D Dijkstra 不能直接作为泊车 Hybrid A* 的最优启发式。真正贴合泊车的标签应该来自与 Hybrid A* 一致的状态空间、动作集合和代价函数。
+
+### 0.2 和 Phase 5 的关系
+
+Phase 5 已经用 MLP 学过 Hybrid A* 成功路径上的 `cost_to_go`：
+
+```text
+[x, y, sin(theta), cos(theta), goal_x, goal_y, sin(goal_theta), cos(goal_theta)]
+-> cost_to_go
+```
+
+Phase 5 的优点是标签来自 Hybrid A* 成功路径，包含车辆运动学和倒车/转向影响。问题是输入没有地图，模型不能真正理解障碍物结构。
+
+Phase 6 补的是地图输入：
+
+```text
+obstacle map + start map + goal map
+-> heuristic map
+```
+
+当前先在 2D toy 中做 CNN heuristic，后续再考虑迁移回泊车。
+
+---
+
+## 1. 数据集生成
 
 脚本：
 
@@ -44,135 +68,63 @@ Phase 6 当前目标是先复现论文中 learning heuristic 的最小闭环：
 generate_grid_dataset.py
 ```
 
-每条样本包含：
+数据内容：
 
 ```text
-inputs:  (3, 32, 32)
-targets: (1, 32, 32)
-masks:   (1, 32, 32)
+inputs:  (N, 3, 32, 32)
+targets: (N, 1, 32, 32)
+masks:   (N, 1, 32, 32)
+maps:    (N, 32, 32)
+starts:  (N, 2)
+goals:   (N, 2)
 ```
 
-`inputs` 有 3 个通道：
+`inputs` 三个通道：
 
 ```text
-channel 0: obstacle map
-channel 1: start map
-channel 2: goal map
+0: obstacle map
+1: start map
+2: goal map
 ```
 
-`targets` 是 Dijkstra 从 goal 反向搜索得到的 cost-to-go map：
+`targets` 是 Dijkstra 从 goal 反向搜索得到的 cost-to-go map。  
+`masks` 用来让 loss 只在 free 且 reachable 的格子上计算。
+
+地图障碍物由三类元素混合生成：
 
 ```text
-每个可达 free cell 到 goal 的最短距离
+随机矩形障碍 + 随机散点/小块障碍 + 横竖短墙障碍
 ```
 
-`masks` 表示哪些位置参与训练：
+正式数据集：
 
 ```text
-free 且 reachable 的格子 = 1
-障碍物或不可达区域 = 0
-```
-
----
-
-## 3. 地图生成方式
-
-第一版地图只用了随机矩形障碍物，视觉上过于规则，障碍物大多成块出现。
-
-因此当前版本改成三类障碍物混合生成：
-
-```text
-1. 随机矩形障碍
-2. 随机散点 / 小块障碍
-3. 横竖短墙障碍
-```
-
-默认参数：
-
-```text
---num-rectangles 10
---num-dots 80
---num-walls 8
---min-free-ratio 0.45
-```
-
-这样地图会更随机、更密，也更容易产生绕行结构。
-
-当前一次小规模测试：
-
-```text
-num_samples: 5
+num samples: 500
 map size: 32 x 32
-mean obstacle ratio: 0.402
-inputs shape: (5, 3, 32, 32)
-targets shape: (5, 1, 32, 32)
-masks shape: (5, 1, 32, 32)
+mean obstacle ratio: 0.393
 ```
 
----
+遇到的问题：
 
-## 4. 预览样例
+```text
+第一版障碍物只用随机矩形，地图过于规则，大多成块出现。
+```
 
-下面两张图来自当前数据生成脚本的预览结果。
+调整：
 
-每张图左侧是随机障碍地图：
+```text
+改成随机矩形 + 散点/小块 + 短墙混合生成，让地图更随机、更接近绕行场景。
+```
 
-- 黑色区域表示障碍物
-- 白色区域表示可通行区域
-- 绿色圆点表示 start
-- 红色星号表示 goal
-
-每张图右侧是 Dijkstra cost-to-go map：
-
-- goal 附近距离最小
-- 离 goal 越远，颜色对应的 cost 越大
-- 障碍物和不可达区域不参与训练
-
-### 4.1 样例 001
+样例：
 
 ![grid2d_sample_001](figures/grid2d_sample_001.png)
-
-### 4.2 样例 002
 
 ![grid2d_sample_002](figures/grid2d_sample_002.png)
 
 ---
 
-## 5. 当前判断
-
-当前数据生成阶段已经完成第一版闭环：
-
-```text
-随机地图
--> 随机 start / goal
--> 检查可达性
--> Dijkstra 生成 cost-to-go 标签
--> 保存 CNN 输入、标签和 mask
--> 保存地图预览图
-```
-
-这个阶段还没有训练 CNN。
-
-当前已经开始写普通 2D A* baseline：
-
-```text
-A* + Manhattan heuristic
-A* + Euclidean heuristic
-A* + Dijkstra true heuristic
-```
-
-这样后面 CNN learned heuristic 训练出来后，才能比较：
-
-```text
-传统 heuristic 展开多少节点
-learned heuristic 展开多少节点
-路径长度有没有变差
-搜索时间有没有变化
-```
-
----
-
-## 6. 2D A* baseline
+## 2. A* Baseline
 
 脚本：
 
@@ -180,272 +132,200 @@ learned heuristic 展开多少节点
 astar_baseline.py
 ```
 
-当前 A* 使用的是 4 联通移动：
+当前使用 4 联通移动：
 
 ```text
-上、下、左、右
+上、下、左、右；每步代价 1.0
 ```
 
-每一步移动代价都是：
+对比三种 heuristic：
 
 ```text
-1.0
+Manhattan heuristic
+Euclidean heuristic
+Dijkstra true heuristic
 ```
 
-因此这个 2D toy 问题里的最短路径长度，就是从 start 到 goal 需要走多少个格子步。
-
-这个脚本读取数据集里的：
-
-```text
-maps
-starts
-goals
-targets
-```
-
-然后在同一批地图上分别运行三种 A*：
-
-```text
-1. A* + Manhattan heuristic
-2. A* + Euclidean heuristic
-3. A* + Dijkstra true heuristic
-```
-
-其中：
-
-```text
-Dijkstra true heuristic = targets[i, 0]
-```
-
-也就是数据生成阶段从 goal 反向搜索得到的真实 cost-to-go map。
-
-在 2D toy 问题里，Dijkstra true heuristic 是最强 baseline，因为它已经知道每个格子到 goal 的真实最短距离。
-
-### 6.1 小规模测试结果
-
-使用 5 个测试样本：
-
-```bash
-python3 astar_baseline.py --dataset datasets/test_grid2d_heuristic.npz
-```
-
-结果：
+小规模测试结果：
 
 ```text
 manhattan heuristic:
 success: 5/5
-mean planning time: 0.001254s
 mean expanded nodes: 137.60
 mean generated nodes: 169.40
 mean path length: 32.40
 
 euclidean heuristic:
 success: 5/5
-mean planning time: 0.001732s
 mean expanded nodes: 176.60
 mean generated nodes: 200.20
 mean path length: 32.40
 
 dijkstra heuristic:
 success: 5/5
-mean planning time: 0.000717s
 mean expanded nodes: 74.20
 mean generated nodes: 108.40
 mean path length: 32.40
 ```
 
-### 6.2 当前结果解释
-
-三种 heuristic 都找到了路径：
+结论：
 
 ```text
-success: 5/5
+Dijkstra true heuristic 展开节点最少，是当前 2D toy 问题里的最强 baseline。
 ```
 
-三种 heuristic 的平均路径长度一样：
+expanded node 的含义：
 
 ```text
-mean path length: 32.40
+从 open list 中取出，并检查过邻居的节点。
 ```
 
-说明它们找到的都是同样长度的最短路径。
+它不是 final path。很多 expanded nodes 最后不会出现在路径里，因为 A* 在找到最终路径之前，需要尝试多个可能方向。
 
-但展开节点数不同：
-
-```text
-Manhattan expanded: 137.60
-Euclidean expanded: 176.60
-Dijkstra expanded: 74.20
-```
-
-这说明：
-
-```text
-Dijkstra true heuristic 最接近真实 cost-to-go，因此搜索最省节点。
-```
-
-这一步的意义是：
-
-```text
-后面 CNN learned heuristic 的目标不是随便预测一个距离图，
-而是尽量接近 Dijkstra true heuristic 的搜索效果。
-```
-
-如果 CNN 接回 A* 后展开节点数接近 Dijkstra true heuristic，并且明显少于 Manhattan / Euclidean，就说明 learned heuristic 有价值。
-
-### 6.3 expanded nodes 可视化
-
-为了更直观看到不同 heuristic 对搜索方向的影响，当前 baseline 脚本会保存一张对比图：
-
-```text
-results/baseline_expanded_nodes.png
-```
-
-图中含义：
-
-- 黑色：障碍物
-- 白色：未展开的自由空间
-- 灰色：A* 已经 expanded 的节点
-- 蓝色线：最终路径
-- 绿色圆点：start
-- 红色星号：goal
-
-当前测试样例：
+expanded nodes 可视化：
 
 ![baseline_expanded_nodes_001](figures/baseline_expanded_nodes_001.png)
 
-从图里可以看到：
+图中：
 
 ```text
-Dijkstra true heuristic 的灰色区域明显更少，
-说明它更清楚哪些节点真的更接近 goal，
-因此 A* 不需要向无关方向展开太多。
+黑色 = 障碍物
+白色 = 未展开自由空间
+灰色 = expanded nodes
+蓝线 = final path
+绿色 = start
+红色 = goal
 ```
 
-### 6.4 为什么不直接沿 Dijkstra 距离场走
-
-这里有一个重要问题：
+关于 Dijkstra true heuristic：
 
 ```text
-如果已经有了 Dijkstra true heuristic，
-为什么不直接从 start 沿着 h 变小的方向走到 goal？
+如果已经有完整 Dijkstra cost-to-go map，
+可以直接从 start 沿 h 变小的方向走到 goal。
 ```
 
-在当前 2D toy 问题中，这确实可以做到。
+但这张 Dijkstra map 本身不是免费的。为了得到它，Dijkstra 已经从 goal 反向搜索了大量区域。论文训练 CNN 的目的就是让网络近似这张 cost-to-go map，避免每次都完整运行 Dijkstra。
 
-因为 Dijkstra true heuristic 本质上是：
+同时，CNN prediction 不一定完全准确。如果直接沿 CNN 的下降方向走，可能遇到局部错误或走偏。因此 learned heuristic 更适合先接回 A*，由 open list 保持搜索稳定性。
+
+---
+
+## 3. CNN Heuristic
+
+脚本：
 
 ```text
-h*(x, y) = 当前格子到 goal 的真实最短距离
+train_grid_cnn.py
 ```
 
-如果动作是 4 联通，并且每一步代价都是 `1.0`，那么可以这样走：
+输入：
 
 ```text
-当前格子 h = 20
--> 选择邻居里 h = 19 的格子
--> 选择邻居里 h = 18 的格子
--> ...
--> h = 0，到达 goal
+obstacle map + start map + goal map
 ```
 
-这相当于沿着 cost-to-go map 做离散梯度下降。
-
-如果 `h*` 是真实 Dijkstra 距离场，这样得到的路径就是最短路径。
-
-但是问题在于：
+输出：
 
 ```text
-Dijkstra true heuristic 不是免费来的。
+predicted cost-to-go map
 ```
 
-为了得到这张完整的 cost-to-go map，Dijkstra 已经从 goal 反向搜索了大量区域，甚至可能接近整张地图。
-
-#### 方式一：先 Dijkstra，再沿距离场走
+网络结构：
 
 ```text
-goal 反向 Dijkstra
--> 得到整张 cost-to-go map
--> 从 start 沿 h 下降走到 goal
+Conv2d + ReLU 堆叠
+dilated convolution 扩大感受野
+最后输出 1 通道 heuristic map
 ```
 
-优点：
-
-- 路径提取很快
-- 路径是最短路径
-- 适合同一张地图、同一个 goal、多次查询不同 start
-
-缺点：
-
-- 前面已经付出了 Dijkstra 全局搜索成本
-- 如果只查一次 start-goal，可能不划算
-
-#### 方式二：A*
+训练设置：
 
 ```text
-从 start 出发
--> 用 h 引导搜索方向
--> 只展开必要区域
+dataset: 500 samples
+train/val/test: 350/75/75
+loss: masked MSE
+epochs: 60
+device: CPU
+target scale: 112.00
 ```
 
-优点：
-
-- 不一定需要展开整张地图
-- 对单次 start-goal 查询通常更省
-- heuristic 不完美时仍然能通过 open list 保持搜索稳定
-
-缺点：
-
-- 需要一个好的 heuristic
-- heuristic 差时会展开很多无关节点
-
-论文训练神经网络的意义就在这里：
+训练结果：
 
 ```text
-Dijkstra true heuristic 是老师；
-CNN learned heuristic 是学生。
+epoch 001, train loss 0.0271, val loss 0.0256, val MAE 14.2311
+epoch 020, train loss 0.0109, val loss 0.0110, val MAE 7.9518
+epoch 040, train loss 0.0068, val loss 0.0114, val MAE 8.2158
+epoch 060, train loss 0.0023, val loss 0.0116, val MAE 7.8319
+
+test loss: 0.0103
+test MAE: 7.2525
 ```
 
-训练时：
+遇到的问题：
 
 ```text
-用 Dijkstra 生成标签。
+第一版普通浅层 CNN 的 MAE 较大，说明只看局部不够。
 ```
 
-测试或规划时：
+调整：
 
 ```text
-用 CNN 快速预测 heuristic map。
+加入 dilated convolution 扩大感受野。
 ```
 
-目标是：
+这里的感受野指的是：预测某个格子的 cost-to-go 时，网络能参考输入地图的范围。dilation 让卷积隔着格子看，在参数量不明显增加的情况下扩大视野。
+
+CNN 预测可视化：
+
+![cnn_prediction_v1](figures/cnn_prediction_v1.png)
+
+图中：
 
 ```text
-不用每次真的跑完整 Dijkstra，
-也能得到接近 Dijkstra 的搜索引导。
-```
-
-但是 CNN 预测出来的 heuristic 不一定完全准确。
-
-如果直接沿 CNN heuristic 的下降方向走，可能会遇到：
-
-- 预测误差导致走偏
-- 局部低谷
-- 周围邻居看起来都不更小
-- 路径碰到障碍后无法恢复
-
-所以 learned heuristic 更适合先接回 A*：
-
-```text
-A* 保留 open list；
-如果某个方向预测错了，还可以回退并继续搜索其他候选节点。
+map = 输入地图
+Dijkstra target = 真实 cost-to-go 标签
+CNN prediction = CNN 预测 heuristic map
+absolute error = |CNN prediction - Dijkstra target|
 ```
 
 当前结论：
 
 ```text
-真实 Dijkstra 距离场可以直接生成路径；
-但真实 Dijkstra 距离场生成成本高；
-CNN 预测的距离场不够可靠；
-所以论文选择把 learned heuristic 放进 A*，而不是直接沿梯度走。
+CNN 已经学到 Dijkstra 距离场的大趋势，但局部误差仍明显。
+当前还只是离线预测结果，尚未证明 learned heuristic 能减少 A* expanded nodes。
+```
+
+误差观察：
+
+```text
+远离 goal 的区域通常误差更大。
+```
+
+原因：
+
+- 远距离 cost-to-go 更依赖全局绕路结构
+- 障碍物和短墙会导致真实路径大幅绕行
+- 当前 CNN 还不能完全理解全局拓扑
+- 远距离样本的绝对误差空间更大
+
+---
+
+## 4. 当前进度
+
+已完成：
+
+```text
+1. 2D 随机地图数据生成
+2. Dijkstra cost-to-go 标签生成
+3. Manhattan / Euclidean / Dijkstra A* baseline
+4. expanded nodes 可视化
+5. 第一版 CNN heuristic 训练
+6. CNN prediction vs Dijkstra target 可视化
+```
+
+下一步：
+
+```text
+把 CNN prediction 接回 A*，
+对比 Manhattan / Euclidean / Dijkstra / CNN learned heuristic 的 expanded nodes。
 ```
