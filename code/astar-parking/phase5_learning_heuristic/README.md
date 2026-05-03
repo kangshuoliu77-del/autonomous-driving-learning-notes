@@ -21,6 +21,7 @@ Hybrid A* 成功路径
 dataset_generator.py      # 生成 cost_to_go 数据集
 train_heuristic_mlp.py    # 训练第一版 MLP heuristic
 evaluate_heuristic.py     # 离线评估第一版 MLP heuristic
+compare_mlp_tiebreaker.py # 对比原始 Hybrid A* 和 MLP tie-breaker
 EXPERIMENT_LOG.md         # 中文实验过程记录
 ```
 
@@ -71,6 +72,12 @@ python3 train_heuristic_mlp.py
 python3 evaluate_heuristic.py
 ```
 
+接回 Hybrid A* 初步对比：
+
+```bash
+python3 compare_mlp_tiebreaker.py --num-trials 5 --tie-precision 0
+```
+
 ---
 
 ## 当前结果
@@ -102,7 +109,8 @@ MLP learned h ranking acc: 0.9832
 - 大 cost 区间误差更明显
 - MLP 排序能力明显强于欧氏距离和 2D Dijkstra baseline
 - 2D Dijkstra 能考虑障碍物，但不考虑姿态和非完整约束，因此在当前数据集上不如 MLP
-- 适合作为辅助 heuristic 或 tie-breaker 继续实验
+- MLP tie-breaker 初步接回 Hybrid A* 后可减少 expanded nodes
+- 批量推理后，MLP tie-breaker 仍可减少 expanded nodes，规划时间明显低于逐节点推理版本，但仍略慢于 baseline
 - 第一版不直接替代原始 `h`
 
 详细过程见：
