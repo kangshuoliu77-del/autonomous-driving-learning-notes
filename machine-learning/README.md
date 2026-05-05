@@ -10,19 +10,30 @@ Phase 1-4 已经完成了传统泊车规划控制闭环：
 Hybrid A* -> path interpolation -> CasADi/IPOPT MPC
 ```
 
-下一阶段开始把 learning 方法接入这个闭环，重点不是泛泛学习深度学习，而是围绕泊车实验思考：
+Phase 5 / Phase 6 已经把 learning 方法接入过这个闭环，当前定位需要稍微调整：
+
+```text
+Phase 5: Hybrid A* success path -> cost_to_go label -> MLP heuristic -> tie-breaker
+Phase 6: 2D map -> Dijkstra label -> CNN heuristic -> Neural A* toy
+```
+
+这两步的意义是理解 learning 如何辅助 search，而不是长期死磕单一 learned heuristic。后续更重要的是把 deep learning 工具箱补完整，并为 imitation learning / RL / 多车交互 planning 做准备。
+
+重点不是泛泛学习深度学习，而是围绕 planning 实验思考：
 
 - 能不能用优秀轨迹训练一个网络
 - 能不能学习 A* / Hybrid A* 的启发式函数
 - 能不能用 learning 方法预测中间位姿、参考轨迹或搜索方向
 - 能不能把 RL、监督学习和传统规划控制结合起来
+- 能不能用 expert trajectory 做 behavior cloning / pre-train，再用 RL 在 simulation 里 fine-tune
 
 ## 推荐资料
 
 ### 动手学深度学习
 
-- 目标：补 PyTorch、神经网络、训练流程、CNN/RNN/Transformer 基础
+- 目标：补 PyTorch、神经网络、训练流程、CNN/RNN/Transformer/CV/NLP 基础
 - 用法：先跑通基础网络和训练循环，再回到泊车实验里构造数据集
+- 当前重点：快速补完 CNN、Transformer、CV/NLP 的基本语言，不在感知方向过深挖掘
 
 ### 吴恩达机器学习 / 深度学习课程
 
@@ -55,9 +66,18 @@ machine-learning/
 
 ## 与泊车项目的连接
 
-后续最自然的实验路线：
+已经完成的连接：
+
+1. 用 Hybrid A* 成功路径生成 `cost_to_go` 数据集
+2. 训练 MLP heuristic
+3. 做离线误差和 ranking accuracy 评估
+4. 将 MLP 作为 tie-breaker 接回 Hybrid A*，观察 expanded nodes 和 planning time
+5. 用二维 toy 理解 Neural A* / CNN heuristic 的基本流程
+
+后续更自然的实验路线：
 
 1. 用现有 Hybrid A* / MPC 生成成功泊车轨迹
 2. 保存状态、障碍物、目标位姿、参考轨迹、控制量等数据
-3. 训练一个小网络学习某个子任务
-4. 把网络接回传统规划器，观察是否能减少搜索节点或改善轨迹质量
+3. 先做 behavior cloning / imitation learning 的最小实验
+4. 再尝试 PPO / RL fine-tuning，而不是只做监督学习 heuristic
+5. 把网络接回传统规划器或仿真器，观察 success rate、collision、expanded nodes、planning time、path quality

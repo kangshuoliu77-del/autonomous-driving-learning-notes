@@ -19,8 +19,9 @@
 - 📄 **paper-notes/** —— 论文精读笔记
 - 💻 **code/** —— 实验代码
   - cartpole/ —— 倒立摆 PID LQR MPC 控制
-  - astar-parking/ —— A* / Hybrid A* 泊车规划 (Phase 1-5)
+  - astar-parking/ —— A* / Hybrid A* 泊车规划 (Phase 1-6)
     - phase5_learning_heuristic/ —— MLP 学习 `cost_to_go` 启发式
+    - phase6_neural_astar_reproduction/ —— Neural A* / CNN heuristic 二维 toy 复现
 - 📅 **weekly-summary/** —— 每周学习总结
 
 ---
@@ -53,6 +54,8 @@
 - [x] MDP 与贝尔曼方程 值迭代 策略迭代
 - [x] Monte Carlo 与 TD 学习
 - [x] PPO Actor-Critic 体系
+- [ ] 倒立摆 PPO / Actor-Critic 最小实验
+- [ ] imitation learning / behavior cloning 基础实验
 - [ ] MARL MADDPG MAPPO QMIX
 
 ### 🧩 机器学习 / 深度学习
@@ -62,25 +65,31 @@
 - [x] MLP / CNN 基础与泊车 local map 模板
 - [x] Learning A* heuristic / neural planning 初步调研
 - [x] 泊车 `cost_to_go` 数据集设计与第一版 MLP heuristic
-- [ ] learned heuristic 离线评估
-- [ ] 将 learned heuristic 接回 Hybrid A* 做对照实验
+- [x] learned heuristic 离线评估与排序准确率评估
+- [x] 将 learned heuristic 作为 tie-breaker 接回 Hybrid A* 做初步对照
+- [x] Neural A* / CNN heuristic 二维 toy 流程初步复现
+- [ ] D2L 后续 CNN / Transformer / CV / NLP 快速补全
 
 ### 🧪 实验
 - [x] A* 泊车规划 (Phase 1-3)
 - [x] Phase 4 Hybrid A* + CasADi/IPOPT MPC 闭环泊车
 - [x] Phase 5 `cost_to_go` 数据集生成
 - [x] 第一版 MLP heuristic 训练
-- [ ] learned heuristic 离线评估与排序准确率评估
-- [ ] Hybrid A* + learned heuristic 对照实验
+- [x] learned heuristic 离线评估与排序准确率评估
+- [x] Hybrid A* + learned heuristic tie-breaker 初步对照实验
+- [x] Phase 6 Neural A* / CNN heuristic 二维 toy
 - [ ] 倒立摆 PID 控制
 - [ ] 倒立摆 LQR 控制
 - [ ] 倒立摆 MPC 控制
+- [ ] 倒立摆 RL / PPO 控制
 
 
 ---
 
 ## 📝 最近更新
 
+- **2026.05 Week 8** 论文资料按方向整理到 `../papers/`；后续路线从 learning heuristic 练习转向 RL / imitation learning / PPO，以及哥哥给的多机器人 formal methods 与 GCS 等 planning 理论资料
+- **2026.05 Week 7** 完成 Phase 5 learning heuristic 离线评估与 Hybrid A* tie-breaker 初步对照；完成 Phase 6 Neural A* / CNN heuristic 二维 toy，理解 learning 加速 search 的基本流程
 - **2026.04 Week 7** 完成 D2L 第 2-6 章核心主线，启动 Phase 5 learning heuristic；生成 100 次 Hybrid A* 成功路径数据集，训练第一版 MLP `cost_to_go` 模型
 - **2026.04 Week 6** 完成 Phase 4 Hybrid A* + CasADi/IPOPT MPC 闭环泊车，成功率 10/10，碰撞 0/10
 - **2026.04 Week 5** 精读 MR 第10章，完成 A* 泊车实验 Phase 1-3
@@ -91,4 +100,4 @@
 
 ---
 
-*最后更新 2026.05.01*
+*最后更新 2026.05.05*
