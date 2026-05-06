@@ -1,8 +1,8 @@
-# Optimal Control
+# 最优控制
 
-This folder is for optimal control notes that connect planning, control, and decision-making.
+这个目录用来整理最优控制笔记，重点是把 planning、control 和 decision-making 串起来。
 
-Topics to organize here later:
+后面可以整理的主题：
 
 - Bellman's principle of optimality
 - dynamic programming
@@ -11,5 +11,4 @@ Topics to organize here later:
 - LQR
 - MPC
 - robot motion optimality
-- links between optimal control, reinforcement learning, and imitation learning
-
+- optimal control、reinforcement learning 和 imitation learning 之间的联系

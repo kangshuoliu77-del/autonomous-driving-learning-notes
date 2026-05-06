@@ -1,8 +1,8 @@
-# Numerical Optimization
+# 数值优化
 
-This folder is for numerical optimization, numerical analysis, and solver-related notes.
+这个目录用来整理数值优化、数值分析和求解器相关笔记。
 
-Topics to organize here later:
+后面可以整理的主题：
 
 - linear programming
 - quadratic programming
@@ -10,5 +10,4 @@ Topics to organize here later:
 - convex optimization algorithms
 - numerical stability
 - solver behavior and failure cases
-- optimization routines used in robotics experiments
-
+- 机器人实验中实际用到的优化求解流程
