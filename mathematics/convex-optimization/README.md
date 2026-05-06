@@ -21,5 +21,5 @@ This is the mathematical language behind Graphs of Convex Sets and convex decomp
 ## Notes
 
 - `chapter-01-introduction.md`: optimization problem map.
+- `boyd-chapter-01-notes.pdf`: my Chapter 1 notes for Boyd sections 1.1-1.4.
 - `chapter-02-convex-sets.md`: convex sets, halfspaces, polyhedra, convex hulls, and geometry for GCS.
-
