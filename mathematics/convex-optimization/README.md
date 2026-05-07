@@ -23,3 +23,4 @@
 - `chapter-01-introduction.md`：第 1 章文字整理，建立优化问题的大图。
 - `boyd-chapter-01-notes.pdf`：Boyd 第 1 章 1.1-1.4 的学习笔记。
 - `chapter-02-convex-sets.md`：第 2 章阅读重点，凸集、halfspace、polyhedron、convex hull，以及和 GCS 有关的几何直觉。
+- `boyd-chapter-02-notes.pdf`：Boyd 第 2 章 2.1、2.2、2.3、2.5 的学习笔记。
