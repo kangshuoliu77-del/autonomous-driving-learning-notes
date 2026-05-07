@@ -2,7 +2,7 @@
 
 这个目录用来整理我在机器人、自动驾驶和科研路线中需要补的数学基础。
 
-当前最优先的是凸优化，因为它直接服务于我哥给我的 CDC -> TRO 扩展主线：
+当前最优先的是凸优化:
 
 - formal multi-robot planning and control
 - 复杂环境的 convex decomposition
