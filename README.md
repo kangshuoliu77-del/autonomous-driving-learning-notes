@@ -1,6 +1,8 @@
-# 🚗 Autonomous-Driving-Learning-Notes
+# Robotics Planning and Control Notes
 
-> 系统记录从零学习自动驾驶、控制理论、强化学习和机器人的过程
+> 以机器人规划与控制为主线，涵盖自动驾驶场景、强化学习和学习式规划的研究记录与实验仓库。
+
+涉及方向包括机器人学、运动规划、控制理论、优化方法、强化学习、学习式规划、多智能体系统和自动驾驶决策规划。
 
 ---
 
@@ -15,7 +17,7 @@
 - 🧩 **machine-learning/** —— 机器学习与深度学习
   - resources/ —— 课程资料、参考书、PDF
   - notes/ —— 机器学习 / 深度学习学习笔记
-  - experiments/ —— 小实验、训练 demo、数据集说明
+  - experiments/ —— 实验脚本、训练模板、数据集说明
 - 📄 **paper-notes/** —— 论文精读笔记
 - 💻 **code/** —— 实验代码
   - cartpole/ —— 倒立摆 PID LQR MPC 控制
@@ -26,7 +28,7 @@
 
 ---
 
-## 📖 当前学习进度
+## 📖 当前进展
 
 ### 🤖 机器人学
 - [x] Modern Robotics 第2章 构型空间 C-space
@@ -68,7 +70,7 @@
 - [x] learned heuristic 离线评估与排序准确率评估
 - [x] 将 learned heuristic 作为 tie-breaker 接回 Hybrid A* 做初步对照
 - [x] Neural A* / CNN heuristic 二维 toy 流程初步复现
-- [ ] D2L 后续 CNN / Transformer / CV / NLP 快速补全
+- [ ] D2L 后续 CNN / Transformer / CV / NLP 继续补充
 
 ### 🧪 实验
 - [x] A* 泊车规划 (Phase 1-3)
@@ -88,16 +90,16 @@
 
 ## 📝 最近更新
 
-- **2026.05 Week 8** 论文资料按方向整理到 `../papers/`；后续路线从 learning heuristic 练习转向 RL / imitation learning / PPO，以及多机器人 formal methods 与 GCS 等 planning 理论资料
-- **2026.05 Week 7** 完成 Phase 5 learning heuristic 离线评估与 Hybrid A* tie-breaker 初步对照；完成 Phase 6 Neural A* / CNN heuristic 二维 toy，理解 learning 加速 search 的基本流程
-- **2026.04 Week 7** 完成 D2L 第 2-6 章核心主线，启动 Phase 5 learning heuristic；生成 100 次 Hybrid A* 成功路径数据集，训练第一版 MLP `cost_to_go` 模型
+- **2026.05 Week 8** 按方向整理论文资料到 `../papers/`；后续重点转向 RL / imitation learning / PPO、多机器人 formal methods 与 GCS 等 planning 理论资料
+- **2026.05 Week 7** 完成 Phase 5 learning heuristic 离线评估与 Hybrid A* tie-breaker 初步对照；完成 Phase 6 Neural A* / CNN heuristic 二维 toy，验证 learning heuristic 辅助 search 的基本流程
+- **2026.04 Week 7** 完成 D2L 第 2-6 章核心主线，启动 Phase 5 learning heuristic；生成 100 次 Hybrid A* 成功路径数据集并训练第一版 MLP `cost_to_go` 模型
 - **2026.04 Week 6** 完成 Phase 4 Hybrid A* + CasADi/IPOPT MPC 闭环泊车，成功率 10/10，碰撞 0/10
 - **2026.04 Week 5** 精读 MR 第10章，完成 A* 泊车实验 Phase 1-3
 - **2026.04 Week 4** 完成 MR 第3章精读 Linear System Theory 第1 2 6章
 - **2026.04 Week 3** 现代控制理论 状态空间 稳定性 能控能观性 MR 第2章
 - **2026.03 Week 2** 避障算法 APF DWA A* PP RL优化避障论文
-- **2026.03 Week 1** RL 入门 MDP 贝尔曼 值迭代 策略迭代 MC TD PPO
+- **2026.03 Week 1** RL 基础 MDP 贝尔曼 值迭代 策略迭代 MC TD PPO
 
 ---
 
-*最后更新 2026.05.05*
+*最后更新 2026.05.07*
