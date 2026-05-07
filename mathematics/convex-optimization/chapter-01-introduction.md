@@ -9,5 +9,4 @@ The main map:
 - Convex optimization is special because local optimality implies global optimality.
 - The hard part of convex optimization is usually modeling the problem into a convex form, not pressing the solver button.
 
-For the current TRO/GCS project, the important point is that complex planning problems become more controllable when the search space is represented by convex sets.
-
+For current GCS and optimization-based planning study, the important point is that complex planning problems become more controllable when the search space is represented by convex sets.

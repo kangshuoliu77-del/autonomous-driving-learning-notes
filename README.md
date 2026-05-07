@@ -88,7 +88,7 @@
 
 ## 📝 最近更新
 
-- **2026.05 Week 8** 论文资料按方向整理到 `../papers/`；后续路线从 learning heuristic 练习转向 RL / imitation learning / PPO，以及哥哥给的多机器人 formal methods 与 GCS 等 planning 理论资料
+- **2026.05 Week 8** 论文资料按方向整理到 `../papers/`；后续路线从 learning heuristic 练习转向 RL / imitation learning / PPO，以及多机器人 formal methods 与 GCS 等 planning 理论资料
 - **2026.05 Week 7** 完成 Phase 5 learning heuristic 离线评估与 Hybrid A* tie-breaker 初步对照；完成 Phase 6 Neural A* / CNN heuristic 二维 toy，理解 learning 加速 search 的基本流程
 - **2026.04 Week 7** 完成 D2L 第 2-6 章核心主线，启动 Phase 5 learning heuristic；生成 100 次 Hybrid A* 成功路径数据集，训练第一版 MLP `cost_to_go` 模型
 - **2026.04 Week 6** 完成 Phase 4 Hybrid A* + CasADi/IPOPT MPC 闭环泊车，成功率 10/10，碰撞 0/10

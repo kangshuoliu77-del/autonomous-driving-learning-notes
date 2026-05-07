@@ -18,7 +18,7 @@
 
 ## 当前重点
 
-围绕当前 TRO/GCS 方向，短期阅读顺序是：
+围绕当前凸优化和 GCS 学习方向，短期阅读顺序是：
 
 1. Boyd 第 1 章：建立优化问题的大图。
 2. Boyd 第 2 章：凸集、halfspace、polyhedron、convex hull、separating hyperplane。

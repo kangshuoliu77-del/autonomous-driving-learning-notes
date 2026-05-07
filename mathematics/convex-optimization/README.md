@@ -4,7 +4,7 @@
 
 ## 为什么重要
 
-当前 CDC -> TRO 项目需要凸优化，是因为原来的 multi-robot formation 环境比较简单，现在要扩展到更复杂的环境。
+当前多机器人 formal methods / motion planning 学习需要凸优化，是因为复杂环境规划通常需要把非凸空间拆分成更容易处理的凸区域。
 
 核心想法是：
 
