@@ -2,13 +2,13 @@
 
 这个目录用来整理我在机器人、自动驾驶和科研路线中需要补的数学基础。
 
-当前最优先的是凸优化:
+当前最优先的是凸优化，因为它直接服务于多机器人形式化规划与复杂环境扩展方向：
 
-- formal multi-robot planning and control
-- 复杂环境的 convex decomposition
-- Graphs of Convex Sets
+- 多机器人形式化规划与控制
+- 复杂环境凸分解
+- 凸集图 Graphs of Convex Sets
 - 基于 CBF / CLF / QP 的控制细化
-- optimization-based motion planning
+- 基于优化的运动规划
 
 ## 目录结构
 
@@ -18,7 +18,7 @@
 
 ## 当前重点
 
-围绕当前凸优化和 GCS 学习方向，短期阅读顺序是：
+围绕当前 TRO/GCS 方向，短期阅读顺序是：
 
 1. Boyd 第 1 章：建立优化问题的大图。
 2. Boyd 第 2 章：凸集、halfspace、polyhedron、convex hull、separating hyperplane。

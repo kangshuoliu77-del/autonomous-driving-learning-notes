@@ -1,4 +1,4 @@
-# Machine Learning & Deep Learning
+# 机器学习与深度学习
 
 这个目录用于记录机器学习、深度学习以及 learning-based planning 的学习资料和笔记。
 

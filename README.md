@@ -1,8 +1,8 @@
-# Robotics Planning and Control Notes
+# 机器人规划与控制学习笔记
 
 > 以机器人规划与控制为主线，涵盖自动驾驶场景、强化学习和学习式规划的研究记录与实验仓库。
 
-涉及方向包括机器人学、运动规划、控制理论、优化方法、强化学习、学习式规划、多智能体系统和自动驾驶决策规划。
+涉及方向包括机器人学、运动规划、控制理论、优化方法、强化学习、学习式规划、形式化方法、多智能体系统和自动驾驶决策规划。
 
 ---
 
@@ -19,6 +19,11 @@
   - notes/ —— 机器学习 / 深度学习学习笔记
   - experiments/ —— 实验脚本、训练模板、数据集说明
 - 📄 **paper-notes/** —— 论文精读笔记
+  - formal-methods/ —— 多机器人时序逻辑与形式化方法论文笔记
+- 📐 **mathematics/** —— 数学基础
+  - convex-optimization/ —— Boyd 凸优化与 GCS 相关笔记
+  - optimal-control/ —— 最优控制、Bellman、MPC 等主题
+  - numerical-optimization/ —— 数值优化、LP/QP/NLP 与求解器
 - 💻 **code/** —— 实验代码
   - cartpole/ —— 倒立摆 PID LQR MPC 控制
   - astar-parking/ —— A* / Hybrid A* 泊车规划 (Phase 1-6)
@@ -85,11 +90,19 @@
 - [ ] 倒立摆 MPC 控制
 - [ ] 倒立摆 RL / PPO 控制
 
+### 📄 论文与形式化方法
+- [x] 多机器人 formation / LTL / GR(1) 框架论文完成第一轮框架梳理
+- [x] 理解 DFTS 抽象、`s=(w,f)`、环境信号 `e`、history、word 与 strategy `μ` 的关系
+- [x] 理解 symbolic synthesis 与 QP/CLF/CBF control refinement 的两层结构
+- [x] 整理相关论文批注笔记到 `paper-notes/formal-methods/`
+- [ ] 继续阅读 GCS / convex decomposition 与复杂环境扩展相关论文
+
 
 ---
 
 ## 📝 最近更新
 
+- **2026.05 Week 8** 新增多机器人 temporal logic / automated formation control 论文笔记；完成 CDC 框架第一轮梳理，重点包括 LTL/GR(1)、DFTS、symbolic strategy、QP/CLF/CBF control refinement
 - **2026.05 Week 8** 按方向整理论文资料到 `../papers/`；后续重点转向 RL / imitation learning / PPO、多机器人 formal methods 与 GCS 等 planning 理论资料
 - **2026.05 Week 7** 完成 Phase 5 learning heuristic 离线评估与 Hybrid A* tie-breaker 初步对照；完成 Phase 6 Neural A* / CNN heuristic 二维 toy，验证 learning heuristic 辅助 search 的基本流程
 - **2026.04 Week 7** 完成 D2L 第 2-6 章核心主线，启动 Phase 5 learning heuristic；生成 100 次 Hybrid A* 成功路径数据集并训练第一版 MLP `cost_to_go` 模型
@@ -102,4 +115,4 @@
 
 ---
 
-*最后更新 2026.05.07*
+*最后更新 2026.05.09*

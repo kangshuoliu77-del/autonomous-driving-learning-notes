@@ -4,11 +4,11 @@
 
 后面可以整理的主题：
 
-- Bellman's principle of optimality
-- dynamic programming
-- HJB equation
-- Pontryagin maximum principle
+- Bellman 最优性原理
+- 动态规划
+- HJB 方程
+- Pontryagin 最大值原理
 - LQR
 - MPC
-- robot motion optimality
-- optimal control、reinforcement learning 和 imitation learning 之间的联系
+- 机器人运动最优性
+- 最优控制、强化学习和模仿学习之间的联系

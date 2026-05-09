@@ -1,4 +1,4 @@
-# Reinforcement Learning
+# 强化学习
 
 这个目录用于记录强化学习与后续 planning + RL / MARL 相关学习。
 
