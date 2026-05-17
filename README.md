@@ -90,18 +90,27 @@
 - [ ] 倒立摆 MPC 控制
 - [ ] 倒立摆 RL / PPO 控制
 
+### 📐 数学与优化
+- [x] Boyd 凸优化第 1 章：优化问题基本概念
+- [x] Boyd 凸优化第 2 章：凸集、凸组合、凸包、超平面、半空间、多面体、锥、分离超平面
+- [x] GCS 论文第一轮阅读：SPP in GCS、perspective operator、network-flow formulation、biconvex formulation、MICP 直觉
+- [ ] Boyd 凸优化第 3 章：凸函数
+- [ ] QP / CBF / CLF 按 CDC 论文需要继续补充
+
 ### 📄 论文与形式化方法
 - [x] 多机器人 formation / LTL / GR(1) 框架论文完成第一轮框架梳理
 - [x] 理解 DFTS 抽象、`s=(w,f)`、环境信号 `e`、history、word 与 strategy `μ` 的关系
 - [x] 理解 symbolic synthesis 与 QP/CLF/CBF control refinement 的两层结构
 - [x] 整理相关论文批注笔记到 `paper-notes/formal-methods/`
-- [ ] 继续阅读 GCS / convex decomposition 与复杂环境扩展相关论文
-
+- [x] 梳理 GCS、IRIS、triangulation、cell decomposition 与 CDC 期刊扩展的关系
+- [ ] 继续推进 complex environment -> region graph -> transition system 的第一版方案
 
 ---
 
 ## 📝 最近更新
 
+- **2026.05 Week 9** 精读 GCS 论文前半部分，理解 SPP in GCS、perspective、network-flow、biconvex/MICP 的核心直觉；明确 CDC 期刊扩展重点为复杂环境表示和 transition system
+- **2026.05 Week 9** 新增复杂环境分解资料整理，重点包括 triangulation / navigation mesh、cell decomposition、IRIS 和 LaValle Chapter 6；下一步优先做 polygon map -> region graph
 - **2026.05 Week 8** 新增多机器人 temporal logic / automated formation control 论文笔记；完成 CDC 框架第一轮梳理，重点包括 LTL/GR(1)、DFTS、symbolic strategy、QP/CLF/CBF control refinement
 - **2026.05 Week 8** 按方向整理论文资料到 `../papers/`；后续重点转向 RL / imitation learning / PPO、多机器人 formal methods 与 GCS 等 planning 理论资料
 - **2026.05 Week 7** 完成 Phase 5 learning heuristic 离线评估与 Hybrid A* tie-breaker 初步对照；完成 Phase 6 Neural A* / CNN heuristic 二维 toy，验证 learning heuristic 辅助 search 的基本流程
@@ -115,4 +124,4 @@
 
 ---
 
-*最后更新 2026.05.09*
+*最后更新 2026.05.17*

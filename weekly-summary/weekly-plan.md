@@ -1,54 +1,57 @@
-# Week 8 Plan：2026.05.03 - 2026.05.09
+# Week 10 Plan：2026.05.18 - 2026.05.24
 
 ## 本周目标
 
-收束 Phase 5 / Phase 6 的 learning heuristic 探索，把重点从 supervised heuristic 转向 PPO / RL 与 imitation learning 的入门实验。
+把 CDC grid world 扩展方向落到第一版可实现方案：复杂环境表示、区域图构造和 transition system 设计。
 
 当前主线：
 
 ```text
-Phase 4 传统规划控制基线
--> Phase 5/6 理解 learning heuristic
--> expert data / imitation learning
--> PPO / RL simulation
+complex polygon map
+-> triangulation / convex cell decomposition
+-> region graph
+-> formation-aware transition system
+-> DFTS / LTL symbolic synthesis
+-> QP / controller refinement
 ```
 
 ## 学习任务
 
-### 深度学习
+### 复杂环境表示
 
-- [ ] 继续推进 D2L 后续内容
-- [ ] 重点了解 CNN 后续、Transformer、NLP、CV 的基本思想
-- [ ] 不追求一次吃透，先建立工具箱和论文阅读背景
+- [ ] 阅读 Demyen & Buro 2006，重点看 triangle graph / abstract graph
+- [ ] 快速浏览 Shewchuk Triangle，理解 constrained triangulation 的输入输出
+- [ ] 阅读 Choset cell decomposition 中 free space -> cell adjacency graph 的部分
+- [ ] 查 LaValle Chapter 6 中 polygonal obstacles / cell decomposition 作为背景
 
-### 强化学习
+### CDC 扩展
 
-- [ ] 选择一个简单环境跑通 PPO
-- [ ] 理解 policy、value、reward、advantage、credit assignment
-- [ ] 记录 PPO 训练流程和关键超参数
+- [ ] 明确原 CDC grid world 里的 region / transition / label 分别对应什么
+- [ ] 设计 polygon / triangle map 下的新 region set
+- [ ] 设计第一版 formation-aware transition feasibility rule
+- [ ] 写一页 idea 草稿：问题、输入输出、方法流程、实验计划
 
-### 泊车 / Planning + Learning
+### GCS / IRIS
 
-- [ ] Phase 6 若继续，只做 CNN heuristic 接回 A* 的最小对照
-- [ ] 梳理 Hybrid A* / MPC expert trajectory 能保存哪些字段
-- [ ] 初步思考 imitation learning：输入、输出、标签、评价指标
+- [ ] GCS 先保留在建模直觉层，不继续深推 Section 7
+- [ ] IRIS 重点看输入输出和 convex region generation，不深挖 SDP 细节
+- [ ] 对比 triangulation 和 IRIS 各自适合放在哪一层
 
-### 长期基础
+### 基础补充
 
-- [ ] MR 第 11 章按需继续
-- [ ] Linear Systems Theory 继续推进
-- [ ] Sutton RL 作为后续强化学习主教材
-- [ ] 概率 / 贝叶斯 / 概率机器人作为 SLAM 和 uncertainty 预备
+- [ ] 继续补 Boyd 凸优化第 3 章凸函数
+- [ ] QP / CBF / CLF 只按 CDC 需要查，不展开太多
+- [ ] RL / PPO 暂时后移，不抢当前主线
 
 ## 本周理想产出
 
-- [ ] 一个 PPO 最小实验记录
-- [ ] 一份 imitation learning 与 parking expert data 的简短设计草稿
-- [ ] 如继续 Phase 6，补完 CNN learned heuristic 接回 A* 对照
-- [ ] D2L 后续章节的简短学习记录
+- [ ] 一份 complex environment representation 读书/论文笔记
+- [ ] 一个 region graph / transition system 草图
+- [ ] 一页 CDC journal extension idea 草稿
+- [ ] 明确第一版实现选 triangulation 还是 IRIS
 
 ## 本周重点
 
-1. 不继续深挖 Neural A*，把它定位为过程理解。
-2. 从 supervised learning 过渡到 RL / imitation learning。
-3. 继续围绕 planning 主线，不脱离已有 parking 系统。
+1. 先做复杂环境和 transition system，不急着做大 MICP。
+2. 保留 CDC 的 symbolic synthesis + QP 两层结构。
+3. 第一版追求清楚、可实现、可实验。
