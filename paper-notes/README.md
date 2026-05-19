@@ -11,6 +11,10 @@
 
 ## 复杂环境表示与分解
 
+- `environment-decomposition/shewchuk-1996-triangle-2d-mesh-generator-delaunay-triangulator.md`
+  Triangle 工具、PSLG、constrained Delaunay triangulation、holes 与 triangle adjacency graph 相关读书笔记。
+- `environment-decomposition/shewchuk-1996-triangle-2d-mesh-generator-delaunay-triangulator-annotated.pdf`
+  Shewchuk 1996 Triangle 原文批注版 PDF 笔记。
 - `environment-decomposition/choset-pignon-1997-boustrophedon-cellular-decomposition.md`
   exact cellular decomposition、boustrophedon decomposition、connectivity-based cells 与 adjacency graph 相关读书笔记。
 - `environment-decomposition/choset-pignon-1997-boustrophedon-cellular-decomposition-annotated.pdf`
