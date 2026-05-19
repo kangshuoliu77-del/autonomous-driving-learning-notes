@@ -1,5 +1,11 @@
 # Demyen & Buro 2006：Efficient Triangulation-Based Pathfinding
 
+对应批注 PDF：
+
+```text
+demyen-buro-2006-efficient-triangulation-based-pathfinding-annotated.pdf
+```
+
 ## 论文定位
 
 这篇论文关注如何用 constrained Delaunay triangulation 表示复杂多边形环境，并在三角剖分图上做更高效的路径搜索。

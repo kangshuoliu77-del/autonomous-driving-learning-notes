@@ -4,7 +4,7 @@
 
 ## 形式化方法与多机器人规划
 
-- `formal-methods/automated-formation-control-synthesis-ltl-notes.pdf`
+- `formal-methods/automated-formation-control-synthesis-ltl-annotated.pdf`
   多机器人 formation control、LTL/GR(1)、DFTS、symbolic synthesis 与 QP control refinement 相关论文批注。
 
 当前后续重点是基于这篇 CDC 工作，继续整理复杂环境表示、convex set map、GCS/IRIS 和 transition system 相关资料。
@@ -13,6 +13,8 @@
 
 - `environment-decomposition/demyen-buro-2006-efficient-triangulation-based-pathfinding.md`
   constrained triangulation、triangle graph、channel、through-width、graph reduction 与 formation-aware transition system 相关读书笔记。
+- `environment-decomposition/demyen-buro-2006-efficient-triangulation-based-pathfinding-annotated.pdf`
+  Demyen & Buro 2006 原文批注版 PDF 笔记。
 
 ## 运动规划
 
