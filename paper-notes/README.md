@@ -11,6 +11,10 @@
 
 ## 复杂环境表示与分解
 
+- `environment-decomposition/choset-pignon-1997-boustrophedon-cellular-decomposition.md`
+  exact cellular decomposition、boustrophedon decomposition、connectivity-based cells 与 adjacency graph 相关读书笔记。
+- `environment-decomposition/choset-pignon-1997-boustrophedon-cellular-decomposition-annotated.pdf`
+  Choset & Pignon 1997 原文批注版 PDF 笔记。
 - `environment-decomposition/belta-isler-pappas-2005-discrete-abstractions-polygonal-environments.md`
   polygonal environment、triangulation、dual graph、language、hybrid-system abstraction 与 controller-aware transition system 相关读书笔记。
 - `environment-decomposition/belta-isler-pappas-2005-discrete-abstractions-polygonal-environments-annotated.pdf`
