@@ -11,6 +11,10 @@
 
 ## 复杂环境表示与分解
 
+- `environment-decomposition/belta-isler-pappas-2005-discrete-abstractions-polygonal-environments.md`
+  polygonal environment、triangulation、dual graph、language、hybrid-system abstraction 与 controller-aware transition system 相关读书笔记。
+- `environment-decomposition/belta-isler-pappas-2005-discrete-abstractions-polygonal-environments-annotated.pdf`
+  Belta, Isler & Pappas 2005 TRO 原文批注版 PDF 笔记。
 - `environment-decomposition/demyen-buro-2006-efficient-triangulation-based-pathfinding.md`
   constrained triangulation、triangle graph、channel、through-width、graph reduction 与 formation-aware transition system 相关读书笔记。
 - `environment-decomposition/demyen-buro-2006-efficient-triangulation-based-pathfinding-annotated.pdf`
