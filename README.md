@@ -103,12 +103,14 @@
 - [x] 理解 symbolic synthesis 与 QP/CLF/CBF control refinement 的两层结构
 - [x] 整理相关论文批注笔记到 `paper-notes/formal-methods/`
 - [x] 梳理 GCS、IRIS、triangulation、cell decomposition 与 CDC 期刊扩展的关系
+- [x] 阅读 Demyen & Buro 2006，整理 triangulation、channel、through-width 与 graph reduction 笔记
 - [ ] 继续推进 complex environment -> region graph -> transition system 的第一版方案
 
 ---
 
 ## 📝 最近更新
 
+- **2026.05 Week 10** 完成 Demyen & Buro 2006 阅读笔记，明确 polygon map -> constrained triangulation -> triangle graph -> formation-aware transition system 的第一版路线
 - **2026.05 Week 9** 精读 GCS 论文前半部分，理解 SPP in GCS、perspective、network-flow、biconvex/MICP 的核心直觉；明确 CDC 期刊扩展重点为复杂环境表示和 transition system
 - **2026.05 Week 9** 新增复杂环境分解资料整理，重点包括 triangulation / navigation mesh、cell decomposition、IRIS 和 LaValle Chapter 6；下一步优先做 polygon map -> region graph
 - **2026.05 Week 8** 新增多机器人 temporal logic / automated formation control 论文笔记；完成 CDC 框架第一轮梳理，重点包括 LTL/GR(1)、DFTS、symbolic strategy、QP/CLF/CBF control refinement
@@ -124,4 +126,4 @@
 
 ---
 
-*最后更新 2026.05.17*
+*最后更新 2026.05.19*

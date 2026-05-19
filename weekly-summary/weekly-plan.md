@@ -19,7 +19,7 @@ complex polygon map
 
 ### 复杂环境表示
 
-- [ ] 阅读 Demyen & Buro 2006，重点看 triangle graph / abstract graph
+- [x] 阅读 Demyen & Buro 2006，重点看 triangle graph / abstract graph
 - [ ] 快速浏览 Shewchuk Triangle，理解 constrained triangulation 的输入输出
 - [ ] 阅读 Choset cell decomposition 中 free space -> cell adjacency graph 的部分
 - [ ] 查 LaValle Chapter 6 中 polygonal obstacles / cell decomposition 作为背景
@@ -45,10 +45,16 @@ complex polygon map
 
 ## 本周理想产出
 
-- [ ] 一份 complex environment representation 读书/论文笔记
+- [x] 一份 complex environment representation 读书/论文笔记
 - [ ] 一个 region graph / transition system 草图
 - [ ] 一页 CDC journal extension idea 草稿
 - [ ] 明确第一版实现选 triangulation 还是 IRIS
+
+## 2026.05.19 更新
+
+- 完成 Demyen & Buro 2006 第一轮阅读。
+- 当前判断：这篇论文最适合作为 polygon map -> triangulation -> triangle graph -> formation-aware transition system 的第一版参考。
+- 后续重点从 TA*/TRA* 搜索细节转向 transition feasibility：`through_width(region, entry_edge, exit_edge) >= required_width(formation)`。
 
 ## 本周重点
 

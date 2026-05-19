@@ -9,6 +9,11 @@
 
 当前后续重点是基于这篇 CDC 工作，继续整理复杂环境表示、convex set map、GCS/IRIS 和 transition system 相关资料。
 
+## 复杂环境表示与分解
+
+- `environment-decomposition/demyen-buro-2006-efficient-triangulation-based-pathfinding.md`
+  constrained triangulation、triangle graph、channel、through-width、graph reduction 与 formation-aware transition system 相关读书笔记。
+
 ## 运动规划
 
 - `reachable-set-based-path-planning-for-automated-vertical-parking-system-handwritten-notes.pdf`
