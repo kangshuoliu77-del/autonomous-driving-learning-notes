@@ -27,6 +27,10 @@
   constrained triangulation、triangle graph、channel、through-width、graph reduction 与 formation-aware transition system 相关读书笔记。
 - `environment-decomposition/demyen-buro-2006-efficient-triangulation-based-pathfinding-annotated.pdf`
   Demyen & Buro 2006 原文批注版 PDF 笔记。
+- `environment-decomposition/han-jeon-kwon-2023-hierarchical-topology-map-explicit-corridor.md`
+  HTM-EC、OGM skeleton、topology graph、explicit corridor、clearance annotation 与当前 ECM/corridor route 相关读书笔记。
+- `environment-decomposition/han-jeon-kwon-2023-hierarchical-topology-map-explicit-corridor-annotated.pdf`
+  Han, Jeon & Kwon 2023 原文批注版 PDF 笔记。
 
 ## 运动规划
 
